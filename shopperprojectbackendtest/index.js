@@ -25,11 +25,9 @@ app.get("/home",(req,res)=>{
 
 //post the registered form fields in postman
 app.post("/signup",(req,res,next)=>{
-   const user = new User(req.body) 
    return res.json({
-        message:user
-    }),
-    next()
+        message:"user"
+    })
 })
 
 app.get("/signin",(req,res)=>{

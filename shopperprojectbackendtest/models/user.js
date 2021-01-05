@@ -1,7 +1,6 @@
 const mongoose = require("mongoose")
 const crypto = require("crypto")
-const bcrypt = require("bcrypt")
-const saltRounds = 10
+const { v4: uuidv4 } = require('uuid')
 const userSchema = new mongoose.Schema({
     name:{
         first:String,
@@ -25,43 +24,32 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-userSchema.virtual("fullname").get(()=>{
+userSchema.virtual("fullname").get(function(){
     return this.name.first + " " + this.name.last
 })
 
-//password must be save assynchronous
-userSchema.pre("save",(next)=>{
-    const user = this
-
-//hash the password if it has been modified(or new)
-if(!user.isModified("password")){
-    return next()
-}
-
-//generate a salt
-bcrypt.genSalt(saltRounds,(err,salt)=>{
-    if(err){
-        return next(err)
-    }
-
-//hash the password using new salt
-bcrypt.hash(user.encry_password,salt,(err,hash)=>{
-    if(err){
-        return next(err)
-    }
-//override the cleartext password with the hashed one
-    user.encry_password = hash
-    next()
-})
-})
-
-})
+userSchema.virtual("password")
+    .set(function(password){
+        this._password = password
+        this.salt = uuidv4()
+        this.encry_password = this.securePassword(password)
+    })
+    .get(function(){
+        this._password
+    })
 
 userSchema.methods = {
-    securePassword:(userpassword,candidatepassword)=>{
-        bcrypt.compare(userpassword,this.encry_password,(err,isMatch)=>{
-            candidatepassword(null,isMatch)
-        })
+    securePassword:function(plainpassword){
+        if(!plainpassword){
+            return ""
+        }
+        try {
+            return crypto.createHmac('sha256', this.salt)
+                   .update(plainpassword)
+                   .digest('hex')
+        } catch (error) {
+            return ""
+        }
     }
 }
 
