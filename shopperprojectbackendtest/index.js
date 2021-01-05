@@ -1,5 +1,5 @@
 const express = require("express")
-const app = express()
+const app = new express()
 const port = 3000
 
 //test to route a file using postman
