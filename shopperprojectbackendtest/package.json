@@ -1,0 +1,23 @@
+{
+  "name": "shopperprojectbackendtest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/britto1996/shopperbackendtest.git"
+  },
+  "author": "btm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/britto1996/shopperbackendtest/issues"
+  },
+  "homepage": "https://github.com/britto1996/shopperbackendtest#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6"
+  }
+}
