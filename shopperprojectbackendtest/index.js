@@ -2,28 +2,44 @@ const express = require("express")
 const app = new express()
 const port = 3000
 
+
+//db connection
+const mongoose = require("mongoose")
+
+//import created models 
+const User = require("./models/user")
+mongoose.connect('mongodb://localhost/shopperonline', {useNewUrlParser: true,
+useUnifiedTopology:true}).then(()=>{
+    console.log("DB CONNECTEED")
+})
+
 //test to route a file using postman
 
 app.get("/home",(req,res)=>{
-    res.json({
+   return res.json({
         message:"user can access home field"
+        
     })
+   
 })
 
-app.get("/signup",(req,res)=>{
-    res.json({
-        message:"user registered successfully"
-    })
+//post the registered form fields in postman
+app.post("/signup",(req,res,next)=>{
+   const user = new User(req.body) 
+   return res.json({
+        message:user
+    }),
+    next()
 })
 
 app.get("/signin",(req,res)=>{
-    res.json({
+   return res.json({
         message:"user can access dashboard"
     })
 })
 
 app.get("/signout",(req,res)=>{
-    res.json({
+   return res.json({
         message:"user loggedout successfully"
     })
 })
