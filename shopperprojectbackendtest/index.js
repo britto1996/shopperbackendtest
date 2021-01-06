@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express")
 const app = new express()
 const port = 3000
@@ -6,11 +7,13 @@ const port = 3000
 //db connection
 const mongoose = require("mongoose")
 
-//import created models 
+//import user model 
 const User = require("./models/user")
-mongoose.connect('mongodb://localhost/shopperonline', {useNewUrlParser: true,
-useUnifiedTopology:true}).then(()=>{
-    console.log("DB CONNECTEED")
+//connect a database called shopperonline
+mongoose.connect(process.env.DATABASE, {useNewUrlParser: true,
+useUnifiedTopology:true,
+useCreateIndex:true}).then(()=>{
+    console.log("DB CONNECTED")
 })
 
 //test to route a file using postman
