@@ -3,10 +3,20 @@
 
 const User = require("../models/user")
 
+//import validation field to provide error messages
+
+const { validationResult } = require("express-validator")
 
 //register field
 
 exports.signup = (req,res)=>{
+    let errors = validationResult(req)
+    console.log(errors)
+    if(!errors.isEmpty()){
+       return res.json({
+            err:errors.array()[0].msg
+        })
+    }
     let user = new User(req.body)
     console.log(user)
     user.save((err,user)=>{
@@ -15,11 +25,12 @@ exports.signup = (req,res)=>{
                 err:"UNABLE TO SAVE IN A DB"
             })
         }
+
         res.json({
             name:user.name,
             email:user.email,
-            id:user._id,
-            purchase:user.purchase
+            purchase:user.purchase,
+            id:user._id
         })
     })
 }
