@@ -3,9 +3,9 @@ const crypto = require("crypto")
 const { v4: uuidv4 } = require('uuid')
 const userSchema = new mongoose.Schema({
     name:{
-        first:String,
-        last:String
+        type:String
     },
+
     email:{
         type:String,
         lowercase:true
@@ -24,9 +24,7 @@ const userSchema = new mongoose.Schema({
     }
 },{timestamps:true})
 
-userSchema.virtual("fullname").get(function(){
-    return this.name.first + " " + this.name.last
-})
+
 
 userSchema.virtual("password")
     .set(function(password){

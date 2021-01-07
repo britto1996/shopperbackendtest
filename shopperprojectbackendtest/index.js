@@ -9,6 +9,11 @@ let cors = require('cors')
 //port number to run server
 const port = 3000
 
+//use middleware files
+app.use(bodyParser.json())
+app.use(cookieParser())
+app.use(cors())
+
 //import router files
 
 const authRoutes = require("./routes/auth")
