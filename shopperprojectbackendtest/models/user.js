@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
         type:Array,
         default:[]
     }
-})
+},{timestamps:true})
 
 userSchema.virtual("fullname").get(function(){
     return this.name.first + " " + this.name.last

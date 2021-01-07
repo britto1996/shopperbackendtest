@@ -1,14 +1,22 @@
 require('dotenv').config()
 const express = require("express")
 const app = new express()
+
+//import middleware files
+let bodyParser = require('body-parser')
+let cookieParser = require('cookie-parser')
+let cors = require('cors')
+//port number to run server
 const port = 3000
 
+//import router files
+
+const authRoutes = require("./routes/auth")
 
 //db connection
 const mongoose = require("mongoose")
 
-//import user model 
-const User = require("./models/user")
+
 //connect a database called shopperonline
 mongoose.connect(process.env.DATABASE, {useNewUrlParser: true,
 useUnifiedTopology:true,
@@ -16,35 +24,18 @@ useCreateIndex:true}).then(()=>{
     console.log("DB CONNECTED")
 })
 
-//test to route a file using postman
+//my routes
+app.use("/api",authRoutes)
 
-app.get("/home",(req,res)=>{
-   return res.json({
-        message:"user can access home field"
-        
-    })
-   
-})
 
-//post the registered form fields in postman
-app.post("/signup",(req,res,next)=>{
-   return res.json({
-        message:"user"
-    })
-})
+//use all the middleware files
+app.use(bodyParser.json())
+app.use(cookieParser())
+app.use(cors())
 
-app.get("/signin",(req,res)=>{
-   return res.json({
-        message:"user can access dashboard"
-    })
-})
 
-app.get("/signout",(req,res)=>{
-   return res.json({
-        message:"user loggedout successfully"
-    })
-})
 
+//listen the port number
 app.listen(port,()=>{
     console.log(`The port is running on port ${port}`)
 })
