@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 
-const {signup,signout} = require("../controllers/auth")
+const {signup,signin,signout} = require("../controllers/auth")
 //custom error messages
 const { check } = require("express-validator")
 
@@ -15,6 +15,15 @@ router.post("/signup",[
     check('password').isLength({min:6})
     .withMessage("password must contain atleast 6 characters")
 ],signup)
+
+router.post("/signin",[
+    check('email').isEmail()
+    .withMessage("Invalid email"),
+
+    check('password').isLength({min:6})
+    .withMessage("password must contain atleast 6 characters")
+],signin)
+
 router.get("/signout",signout)
 
 module.exports = router;
