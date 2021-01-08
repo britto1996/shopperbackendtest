@@ -90,6 +90,7 @@ exports.signin = (req,res)=>{
 //logout field
 
 exports.signout = (req,res)=>{
+    res.clearCookie("token")
     res.json({
         message:"user log out successfully"
     })
