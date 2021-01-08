@@ -1,9 +1,10 @@
 const express = require("express")
 const router = express.Router()
 
-const {signup,signin,signout} = require("../controllers/auth")
+const {signup,signin,signout,isSignedIn} = require("../controllers/auth")
 //custom error messages
 const { check } = require("express-validator")
+const user = require("../models/user")
 
 router.post("/signup",[
     check('name').isLength({min:3})
@@ -24,6 +25,15 @@ router.post("/signin",[
     .withMessage("password must contain atleast 6 characters")
 ],signin)
 
+//add a test route field
+
+router.get("/testroute",isSignedIn,(req,res)=>{
+    res.json({
+        message:req.auth
+    })
+})
+
 router.get("/signout",signout)
+
 
 module.exports = router;

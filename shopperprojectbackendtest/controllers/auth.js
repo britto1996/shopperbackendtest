@@ -2,6 +2,10 @@
 
 const jwt = require('jsonwebtoken')
 
+//import express json 
+
+const expressJwt = require('express-jwt')
+
 //import user model
 
 const User = require("../models/user")
@@ -87,6 +91,12 @@ exports.signin = (req,res)=>{
     
 }
 
+
+
+
+    
+
+
 //logout field
 
 exports.signout = (req,res)=>{
@@ -94,4 +104,34 @@ exports.signout = (req,res)=>{
     res.json({
         message:"user log out successfully"
     })
+}
+
+
+//protected route field
+
+exports.isSignedIn = expressJwt({
+    secret:process.env.SECRET,
+    algorithms: ['sha1', 'RS256', 'HS256'],
+    userProperty:"auth"
+})
+
+
+//custom middlewares
+
+const isAuthentication = (req,res,next)=>{
+    let checker = req.profile && req.auth && req.profile._id == req.auth._id
+    if(!checker){
+        res.json({
+            err:"Access denied"
+        })
+    }
+}
+
+const isAdmin = (req,res,next)=>{
+    const user = new User(req.body)
+    if(user.role==0){
+        res.json({
+            err:"Can't access this page"
+        })
+    }
 }
