@@ -4,7 +4,7 @@ const router = express.Router()
 const {signup,signin,signout,isSignedIn} = require("../controllers/auth")
 //custom error messages
 const { check } = require("express-validator")
-const user = require("../models/user")
+const User = require("../models/user")
 
 router.post("/signup",[
     check('name').isLength({min:3})

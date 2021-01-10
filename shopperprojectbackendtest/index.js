@@ -17,6 +17,7 @@ app.use(cors())
 //import router files
 
 const authRoutes = require("./routes/auth")
+const userRoutes = require("./routes/user")
 
 //db connection
 const mongoose = require("mongoose")
@@ -31,7 +32,7 @@ useCreateIndex:true}).then(()=>{
 
 //my routes
 app.use("/api",authRoutes)
-
+app.use("/api",userRoutes)
 
 //use all the middleware files
 app.use(bodyParser.json())
