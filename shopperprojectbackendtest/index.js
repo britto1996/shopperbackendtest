@@ -39,9 +39,13 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(cors())
 
+//collect mongoose data collections
+
+
 
 
 //listen the port number
+
 app.listen(port,()=>{
     console.log(`The port is running on port ${port}`)
 })
