@@ -5,7 +5,7 @@ const User = require("../models/user")
 
 //extract id from the getUserById
 
-const getUserById = (req,res,next,_id)=>{
+ exports.getUserById = (req,res,next,_id)=>{
     User.findById(_id).exec((err,user)=>{
         if(err||!user){
            return res.status(400).json({
@@ -17,6 +17,9 @@ const getUserById = (req,res,next,_id)=>{
     })
 }
 
-const getUser = (req,res)=>{
+ exports.getUser = (req,res)=>{
+
+    //TODO:GET BACK HERE FOR PASSWORD
+
     return res.json(req.profile)
 }

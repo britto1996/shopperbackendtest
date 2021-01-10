@@ -118,20 +118,25 @@ exports.isSignedIn = expressJwt({
 
 //custom middlewares
 
-const isAuthentication = (req,res,next)=>{
+ exports.isAuthentication = (req,res,next)=>{
     let checker = req.profile && req.auth && req.profile._id == req.auth._id
     if(!checker){
         res.json({
             err:"Access denied"
         })
+        
     }
+    next()
+   
 }
 
-const isAdmin = (req,res,next)=>{
+ exports.isAdmin = (req,res,next)=>{
     const user = new User(req.body)
     if(user.role==0){
         res.json({
             err:"Can't access this page"
         })
     }
+    next()
+    
 }
