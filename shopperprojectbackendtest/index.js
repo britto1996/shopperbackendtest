@@ -18,6 +18,7 @@ app.use(cors())
 
 const authRoutes = require("./routes/auth")
 const userRoutes = require("./routes/user")
+const categoryRoutes = require("./routes/category")
 
 //db connection
 const mongoose = require("mongoose")
@@ -33,6 +34,7 @@ useCreateIndex:true}).then(()=>{
 //my routes
 app.use("/api",authRoutes)
 app.use("/api",userRoutes)
+app.use("/api",categoryRoutes)
 
 //use all the middleware files
 app.use(bodyParser.json())
