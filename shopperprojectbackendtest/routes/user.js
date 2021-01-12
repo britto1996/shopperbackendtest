@@ -4,7 +4,7 @@
 
 //import elements from user in controllers
 
-const {getUserById,getUser,userUpdate} = require("../controllers/user")
+const {getUserById,getUser,userUpdate,isOrder} = require("../controllers/user")
 const {isSignedIn,isAuthentication,isAdmin} = require("../controllers/auth")
 
 
@@ -30,7 +30,11 @@ router.param("userId",getUserById)
 
 router.get('/user/:userId',isSignedIn,isAuthentication,getUser)
 
+router.get('/orders/user/:userId',isSignedIn,isAuthentication,isOrder)
+
 router.put('/user/:userId',isSignedIn,isAuthentication,userUpdate)
+
+
 
 
 module.exports = router
