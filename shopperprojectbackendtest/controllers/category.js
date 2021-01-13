@@ -18,13 +18,14 @@ exports.getCategoryById = (req,res,next,id)=>{
 exports.createCategory = (req,res)=>{
     const category = new Category(req.body)
     category.save((err,category)=>{
-        if(err || !category){
+        if(err){
            return res.json({
                 err:"UNABLE TO SAVE CATEGORY"
             })
         }
         res.json({
-            message:category
+            message:category,
+            print:console.log(category)
         })
     })
 }
@@ -46,7 +47,7 @@ exports.getAllCategories = (req,res)=>{
 
 exports.updatedCategory = (req,res)=>{
     const category = req.category
-    const updatedCate = req.body.category.name
+    category.name = req.body.name
 
     category.save((err,updateItems)=>{
         if(err){
@@ -55,5 +56,20 @@ exports.updatedCategory = (req,res)=>{
             })
         }
         res.json(updateItems)
+    })
+}
+
+exports.removeCategory = (req,res)=>{
+    const category = req.category
+
+    category.remove((err,removeItems)=>{
+        if(err){
+            res.status(400).json({
+                err:"cannot remove items"
+            })
+        }
+        res.json({
+            message:`Item ${removeItems} is removed`
+        })
     })
 }

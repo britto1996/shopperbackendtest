@@ -134,7 +134,7 @@ exports.isSignedIn = expressJwt({
 
  exports.isAdmin = (req,res,next)=>{
     const user = new User(req.body)
-    if(user.role==0){
+    if(!user.role==0){
         res.json({
             err:"Can't access this page"
         })
