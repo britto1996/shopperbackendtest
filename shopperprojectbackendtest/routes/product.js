@@ -16,7 +16,8 @@ const {
   photo,
   deleteProduct,
   updateProduct,
-  getAllProducts
+  getAllProducts,
+  getProductCategories
 } = require("../controllers/product");
 const { getUserById } = require("../controllers/user");
 const {
@@ -56,6 +57,10 @@ router.put(
 //listing product
 
 router.get("/products",getAllProducts)
+
+//product categories
+
+router.get("/products/categories",getProductCategories)
 
 
 module.exports = router;
