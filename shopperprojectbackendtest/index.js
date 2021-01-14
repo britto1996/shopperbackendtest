@@ -10,6 +10,7 @@ let cors = require('cors')
 const port = 3000
 
 //use middleware files
+app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(cors())

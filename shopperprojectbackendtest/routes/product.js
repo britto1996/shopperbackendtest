@@ -9,7 +9,15 @@ const Product = require("../models/product");
 
 //import logic of user , auth and products
 
-const { getProductById,createProducts } = require("../controllers/product");
+const {
+  getProductById,
+  createProducts,
+  getProduct,
+  photo,
+  deleteProduct,
+  updateProduct,
+  getAllProducts
+} = require("../controllers/product");
 const { getUserById } = require("../controllers/user");
 const {
   isSignedIn,
@@ -17,10 +25,37 @@ const {
   isAdmin,
 } = require("../controllers/auth");
 
-router.param("userId",getUserById)
-router.param("productId",getProductById)
+router.param("userId", getUserById);
+router.param("productId", getProductById);
 
-router.get("/product/create/:productId",createProducts)
+//create product
+router.post("/product/create/:userId", createProducts);
+
+//read product
+router.get("/product/:productId", getProduct);
+router.get("/product/photo/:productId", photo);
+
+//delete product
+router.delete(
+  "/product/:productId/:userId",
+  isSignedIn,
+  isAuthentication,
+  isAdmin,
+  deleteProduct
+);
+
+//update product
+router.put(
+  "/product/:productId/:userId",
+  isSignedIn,
+  isAuthentication,
+  isAdmin,
+  updateProduct
+);
+
+//listing product
+
+router.get("/products",getAllProducts)
 
 
 module.exports = router;
