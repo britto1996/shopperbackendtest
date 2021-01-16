@@ -6,13 +6,16 @@ const {
   userUpdate,
   isOrder,
 } = require("../controllers/user");
+
+//import some elements from auth in controllers
+
 const {
   isSignedIn,
   isAuthentication,
   isAdmin,
 } = require("../controllers/auth");
 
-//import some elements from auth in controllers
+
 
 //import express
 

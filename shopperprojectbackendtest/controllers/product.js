@@ -13,7 +13,7 @@ const fs = require("fs");
 //import product model
 
 const Product = require("../models/product");
-const product = require("../models/product");
+
 
 exports.getProductById = (req, res, next, id) => {
   Product.findById(id).exec((err, products) => {
