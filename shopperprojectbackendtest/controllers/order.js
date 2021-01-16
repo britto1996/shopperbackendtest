@@ -52,7 +52,7 @@ exports.getStatus = (req,res)=>{
 }
 
 exports.updateOrder = (req,res)=>{
-    Order.update({id:req.body.orderId},
+    Order.updateMany({id:req.body.orderId},
         {$set:{status:req.body.status}},
         (err,order)=>{
             if(err){
