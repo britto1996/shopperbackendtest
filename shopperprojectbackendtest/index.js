@@ -7,7 +7,7 @@ let bodyParser = require('body-parser')
 let cookieParser = require('cookie-parser')
 let cors = require('cors')
 //port number to run server
-const port = 3000
+const port = 8000
 
 //use middleware files
 app.use(bodyParser.urlencoded({extended: false}))
